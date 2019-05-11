@@ -32,3 +32,76 @@
         }
     ])
 ```
+
+## Finding Data
+
+> db.flightData.find({intercontinental: true}).pretty()
+
+```javascript
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+    }
+```
+
+> db.flightData.find({distance: 12000}).pretty()
+
+```javascript
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+    }
+```
+> db.flightData.find({distance: { $gt: 10000 }}).pretty()
+
+```javascript
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+    }
+```
+> db.flightData.find({distance: { $gt: 900 }}).pretty()
+
+```javascript
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+    }
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "Airbus A320",
+        "distance" : 950,
+        "intercontinental" : false
+    }
+```
+
+> db.flightData.findOne({distance: { $gt: 900 }}) [Pretty() would not work on this method]
+
+```javascript
+    {
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+    }
+```
