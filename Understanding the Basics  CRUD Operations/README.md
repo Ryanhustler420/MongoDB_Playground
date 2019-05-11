@@ -207,3 +207,9 @@ no cursor
 > db.passengers.find({}, {name: 1}).pretty()
 
 > db.passengers.find({}, {name: 1, _id: 0}).pretty()
+
+## Embedded Document
+
+> db.flightData.updateMany({}, {$set: {status: {description: "on-time", lastUpdated: "1 hour ago"}}})
+
+> db.flightData.updateMany({}, {$set: {status: {description: "on-time", lastUpdated: "1 hour ago", details: { "responsible": "Gaurav Gupta" } } } })
