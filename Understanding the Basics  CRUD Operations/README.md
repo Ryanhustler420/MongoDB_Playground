@@ -213,3 +213,8 @@ no cursor
 > db.flightData.updateMany({}, {$set: {status: {description: "on-time", lastUpdated: "1 hour ago"}}})
 
 > db.flightData.updateMany({}, {$set: {status: {description: "on-time", lastUpdated: "1 hour ago", details: { "responsible": "Gaurav Gupta" } } } })
+
+
+## Arrays
+
+> db.passengers.updateOne({ name: "Albert Twostone"}, {$set: {hobbies: ["sports", "cooking"]}});
