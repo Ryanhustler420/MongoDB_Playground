@@ -218,3 +218,45 @@ no cursor
 ## Arrays
 
 > db.passengers.updateOne({ name: "Albert Twostone"}, {$set: {hobbies: ["sports", "cooking"]}});
+
+## Accessing Structured Data
+
+> db.passengers.find({name: "Albert Twostone"}).pretty()
+
+```javaScript
+    {
+            "_id" : ObjectId("5cd71a7e238517bf02d7a021"),
+            "name" : "Albert Twostone",
+            "age" : 68,
+            "hobbies" : [
+                    "sports",
+                    "cooking"
+            ]
+    }
+```
+
+> db.passengers.findOne({name: "Albert Twostone"}).hobbies
+
+```javascript
+    [ "sports", "cooking" ]
+```
+
+> db.passengers.find({hobbies: "sports"}).pretty()
+
+```javaScript
+    {
+            "_id" : ObjectId("5cd71a7e238517bf02d7a021"),
+            "name" : "Albert Twostone",
+            "age" : 68,
+            "hobbies" : [
+                    "sports",
+                    "cooking"
+            ]
+    }
+```
+
+## Accessing Nested Objects
+
+> db.flightData.find({"status.description": "on-time"}).pretty()
+
+> db.flightData.find({"status.details.responsible": "Gaurav Gupta"}).pretty()
