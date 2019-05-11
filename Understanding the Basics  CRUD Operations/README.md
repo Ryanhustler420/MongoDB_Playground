@@ -143,3 +143,61 @@ db.flightData.replaceOne({_id : ObjectId("5cd70dbcdff3795a34eafec0")}, {
 })
 
 ```
+
+## Understand find() the Cursor Object
+
+> db.passengers.insertMany(paste here passengers array)
+
+
+> db.passengers.find().pretty()
+
+```javaScript
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a011"),
+        "name" : "Gaurav Kumar",
+        "age" : 28
+}
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a012"),
+        "name" : "Maria Jones",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a013"),
+        "name" : "Alexandra Maier",
+        "age" : 27
+}
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a01c"),
+        "name" : "Freddy Melver",
+        "age" : 41
+}
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a01d"),
+        "name" : "Alexis Bohed",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a021"),
+        "name" : "Albert Twostone",
+        "age" : 68
+}
+
+Type "it" for more
+
+> it
+
+{
+        "_id" : ObjectId("5cd71a7e238517bf02d7a022"),
+        "name" : "Gordon Black",
+        "age" : 38
+}
+
+> it
+no cursor
+
+```
+
+> db.passengers.find().toArray() to get data as an Array at once
+
+> db.passengers.find().forEach((doc) => printjson(doc)); 
