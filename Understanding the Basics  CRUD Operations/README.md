@@ -201,3 +201,9 @@ no cursor
 > db.passengers.find().toArray() to get data as an Array at once
 
 > db.passengers.find().forEach((doc) => printjson(doc)); 
+
+## Projection
+
+> db.passengers.find({}, {name: 1}).pretty()
+
+> db.passengers.find({}, {name: 1, _id: 0}).pretty()
