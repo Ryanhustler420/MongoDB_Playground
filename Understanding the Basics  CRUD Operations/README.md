@@ -105,3 +105,41 @@
         "intercontinental" : true
     }
 ```
+
+## Update Vs UpdateMany()
+
+> db.flightData.updateOne({_id : ObjectId("5cd70dbcdff3795a34eafec0")}, { $set: { delayed: true } })
+
+> db.flightData.update({_id : ObjectId("5cd70dbcdff3795a34eafec0")}, { $set: { delayed: false } })
+
+> db.flightData.update({_id : ObjectId("5cd70dbcdff3795a34eafec0")}, { delayed: false } ) [You Can Ommite $set on update(), But Overwrite Previous Data :( ]
+
+```
+> db.flightData.find().pretty()
+
+{ "_id" : ObjectId("5cd70dbcdff3795a34eafec0"), "delayed" : false }
+
+{
+        "_id" : ObjectId("5cd70dbcdff3795a34eafec1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "Airbus A320",
+        "distance" : 950,
+        "intercontinental" : false
+}
+
+```
+
+> Use ReplaceOne() instead of Update() 
+
+```javaScript
+
+db.flightData.replaceOne({_id : ObjectId("5cd70dbcdff3795a34eafec0")}, {
+    "departureAirport": "MUC",
+    "arrivalAirport": "SFO",
+    "aircraft": "Airbus A380",
+    "distance": 12000,
+    "intercontinental": true
+})
+
+```
