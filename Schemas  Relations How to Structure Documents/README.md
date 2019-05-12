@@ -206,3 +206,22 @@
 > db.questionThreads.insertOne({creator: "Gaurav Gupta", question: "How does that Async Code Works?", answers: [{text: "Like That"},{text: "Thanks!"}]})
 
 > db.questionThreads.findOne()
+
+## One To Many - Using References
+
+> use city
+
+> db.cities.insertOne({name: "New Your City", coordinates: {lat: 21, lng: 55}})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd80b86966c507bfe09a373")
+    }
+```
+
+> db.cities.findOne()
+
+> db.citizens.insertMany([{name: "Gaurav Gupta", cityId: ObjectId("5cd80b86966c507bfe09a373")},{name: "Saurav Gupta", cityId: ObjectId("5cd80b86966c507bfe09a373")}])
+
+> db.citizens.find().pretty()
