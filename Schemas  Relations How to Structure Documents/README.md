@@ -293,3 +293,9 @@
 > db.books.updateOne({}, {$set: {authors: [ObjectId("5cd83075966c507bfe09a37c"), ObjectId("5cd83075966c507bfe09a37d")]}})
 
 > db.books.find().pretty()
+
+## Using $lookup for Merging Reference Relations
+
+> db.books.aggregate([{$lookup: {from: "authors", localField: "authors", foreignField: "_id", as: "creators"}}]).pretty()
+
+> Best for Merging Data from Different Collection At One Go
