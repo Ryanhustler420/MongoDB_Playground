@@ -162,10 +162,31 @@
     > dsid
 ```
 
-> db.diseaseSummaries.findOne({_id: dsid})
+> db.diseaseSummaries.findOne({ _id: dsid })
 
 > db.patients.deleteMany({})
 
 > db.patients.insertOne({name: "Gaurav", age: 21, diseaseSummary: {diseases: ["cold","broken heart"]}})
 
 > db.patients.findOne()
+
+## One To One - Using Reference Type
+
+> use car
+
+> db.persons.insertOne({name: "Gaurav", car: {model: "BMW 7x", price: 140000}})
+
+> db.persons.findOne()
+
+> db.persons.deleteMany({})
+
+> db.persons.insertOne({name: "Gaurav", age: 21, salary: 3000})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd7be8fe35ac880778848bc")
+    }
+```
+
+> db.cars.insertOne({model: "BMW 7x", price: 140000, owner: ObjectId("5cd7be8fe35ac880778848bc")})
