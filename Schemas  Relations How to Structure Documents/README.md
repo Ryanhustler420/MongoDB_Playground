@@ -277,3 +277,19 @@
 > db.customers.findOne()
 
 > db.customers.update({}, {$set: {orders: [ {title: "A Book", price: "12.99", quantity: 2} ]}})
+
+## Many To Many - Using References
+
+> use bookRegistry
+
+> db.books.insertOne({name: "My favorite Book", authors: [{name: "Gaurav Gupta", age: 21}, {name: "Saurav Gupta", age: 23}]})
+
+> db.books.find().pretty()
+
+> db.authors.insertMany([{name: "Gaurav Gupta", age: 21, address: {street: "Main 420 ..."}},{name: "Saurav Gupta", age: 23, address: {street: "Main Street Tree"}}])
+
+> db.authors.find().pretty()
+
+> db.books.updateOne({}, {$set: {authors: [ObjectId("5cd83075966c507bfe09a37c"), ObjectId("5cd83075966c507bfe09a37d")]}})
+
+> db.books.find().pretty()
