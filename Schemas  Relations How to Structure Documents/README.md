@@ -149,7 +149,7 @@
 
 > db.patients.findOne();
 
-> db.diseaseSummaries.insertOne({ _id: "summary-gaurav-1", diseases: ["cold","broken heart"]})
+> db.diseaseSummaries.insertOne({ \_id: "summary-gaurav-1", diseases: ["cold","broken heart"]})
 
 > db.diseaseSummaries.findOne()
 
@@ -162,7 +162,7 @@
     > dsid
 ```
 
-> db.diseaseSummaries.findOne({ _id: dsid })
+> db.diseaseSummaries.findOne({ \_id: dsid })
 
 > db.patients.deleteMany({})
 
@@ -197,7 +197,7 @@
 
 > db.questionThreads.insertOne({creator: "Gaurav Gupta", question: "How does that all work? What is async code?", answers: ["q1a1","q1a2"]})
 
-> db.answers.insertMany([{_id: "q1a1", text: "It works like that. Checkout My Gist [here](http://github.com/xxxGaurav/asyncTask/secret=false)"}, {_id: "q1a2", text: "thanks man"}])
+> db.answers.insertMany([{\_id: "q1a1", text: "It works like that. Checkout My Gist [here](http://github.com/xxxGaurav/asyncTask/secret=false)"}, {\_id: "q1a2", text: "thanks man"}])
 
 > db.answers.find().pretty()
 
@@ -225,3 +225,55 @@
 > db.citizens.insertMany([{name: "Gaurav Gupta", cityId: ObjectId("5cd80b86966c507bfe09a373")},{name: "Saurav Gupta", cityId: ObjectId("5cd80b86966c507bfe09a373")}])
 
 > db.citizens.find().pretty()
+
+## Many To Many - Embedded
+
+> use shop
+
+> db.products.insertOne({title: "A Book", price: 12.99})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd82bb4966c507bfe09a376")
+    }
+```
+
+> db.customers.insertOne({name: "Gaurav Gupta", age: 21})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd82bb8966c507bfe09a377")
+    }
+```
+
+> db.orders.insertOne({productId: ObjectId("5cd82bb4966c507bfe09a376"), customerId: ObjectId("5cd82bb8966c507bfe09a377")})
+
+> db.orders.find().toArray()
+
+> db.orders.drop()
+
+> db.products.insertOne({title: "A Book", price: 12.99})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd82cac966c507bfe09a379")
+    }
+```
+
+> db.customers.insertOne({name: "Gaurav Gupta", age: 21})
+
+```javaScript
+    {
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5cd82cb1966c507bfe09a37a")
+    }
+```
+
+> db.customers.updateOne({}, {$set: {orders: [{productId: ObjectId("5cd82cac966c507bfe09a379"), quantity: 3}]}})
+
+> db.customers.findOne()
+
+> db.customers.update({}, {$set: {orders: [ {title: "A Book", price: "12.99", quantity: 2} ]}})
