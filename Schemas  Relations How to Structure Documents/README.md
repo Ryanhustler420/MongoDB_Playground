@@ -190,3 +190,19 @@
 ```
 
 > db.cars.insertOne({model: "BMW 7x", price: 140000, owner: ObjectId("5cd7be8fe35ac880778848bc")})
+
+## One To Many - Embedded
+
+> use support
+
+> db.questionThreads.insertOne({creator: "Gaurav Gupta", question: "How does that all work? What is async code?", answers: ["q1a1","q1a2"]})
+
+> db.answers.insertMany([{_id: "q1a1", text: "It works like that. Checkout My Gist [here](http://github.com/xxxGaurav/asyncTask/secret=false)"}, {_id: "q1a2", text: "thanks man"}])
+
+> db.answers.find().pretty()
+
+> db.questionThreads.deleteMany({})
+
+> db.questionThreads.insertOne({creator: "Gaurav Gupta", question: "How does that Async Code Works?", answers: [{text: "Like That"},{text: "Thanks!"}]})
+
+> db.questionThreads.findOne()
