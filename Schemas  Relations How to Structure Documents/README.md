@@ -140,3 +140,32 @@
 
 > typeof db.numbers.findOne().a
 > number
+
+## One To One Relations -Embedded
+
+> use hospital
+
+> db.patients.insertOne({name: "Gaurav", age: 21, diseaseSummary: "summary-gaurav-1"})
+
+> db.patients.findOne();
+
+> db.diseaseSummaries.insertOne({ _id: "summary-gaurav-1", diseases: ["cold","broken heart"]})
+
+> db.diseaseSummaries.findOne()
+
+> db.patients.findOne()
+
+> db.patients.findOne().diseaseSummary
+
+```javascript
+    > var dsid = db.patients.findOne().diseaseSummary
+    > dsid
+```
+
+> db.diseaseSummaries.findOne({_id: dsid})
+
+> db.patients.deleteMany({})
+
+> db.patients.insertOne({name: "Gaurav", age: 21, diseaseSummary: {diseases: ["cold","broken heart"]}})
+
+> db.patients.findOne()
