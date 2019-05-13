@@ -134,3 +134,19 @@ use user
 db.users.find().pretty()
 
 db.users.find({hobbies:{$elemMatch:{title:"Sports",frequency:2}}}).pretty()
+
+// Applying Cursors
+
+use movieData
+
+db.movies.find().pretty().count()
+
+db.movies.find().next()
+
+const dataCursor = db.movies.find()
+
+dataCursor.next() // Multiple times
+
+dataCursor.forEach(doc => {printjson(doc)})
+
+dataCursor.hasNext()
