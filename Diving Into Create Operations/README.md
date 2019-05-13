@@ -17,3 +17,12 @@
 > db.persons.find().pretty()
 
 > db.persons.insert([{name: "Sandeep", age: 28}, {name: "Hans", age: 38}])
+
+## Working with Ordered Inserts
+
+> db.hobbies.insertMany([{_id: "sports", name: "Sports"}, {_id: "cooking", name: "Cooking"}, {_id: "cars", name: "Cars"}])
+
+> db.hobbies.find().pretty()
+
+> db.hobbies.insertMany([{_id: "yoga", name: "Yoga"}, {_id: "cooking", name: "Cooking"}, {_id: "hiking", name: "Hiking"}], {ordered: false})
+
