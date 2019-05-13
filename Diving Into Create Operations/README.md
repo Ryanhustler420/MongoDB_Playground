@@ -39,3 +39,19 @@
 > db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: false, wtimeout: 200}})
 
 > db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: false, wtimeout: 1}})
+
+## Importing Data
+
+> Navigate to File Location Where The .Json File Located And Open A terminal On that Location As A Root.
+
+> mongoimport tv-shows.json -d movieData -c movies --jsonArray --drop
+
+> mongo
+
+> show dbs
+
+> use movieData
+
+> show collections
+
+> db.movies.find().pretty()
