@@ -319,3 +319,15 @@
 > db.posts.insertOne({title: "My first Post!", text: "This is my first shell based post, I hope u like it", tags: ["new","tech"], creator: ObjectId("5cd8e8d6966c507bfe09a37e"), comments: [{text: "I like this post!", author: ObjectId("5cd8e8d6966c507bfe09a37f")}]})
 
 > db.posts.findOne()
+
+## Adding Collection Document Validation
+
+> db.posts.drop()
+
+> db.posts.findOne();
+
+> Paste `validation.js` code snippet in shell
+
+> db.posts.insertOne({title: "My first Post!", text: "This is my first shell based post, I hope u like it", tags: ["new","tech"], creator: ObjectId("5cd8e8d6966c507bfe09a37e"), comments: [{text: "I like this post!", author: ObjectId("5cd8e8d6966c507bfe09a37f")}]})
+
+> db.posts.findOne()
