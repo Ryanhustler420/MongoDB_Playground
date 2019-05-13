@@ -126,3 +126,11 @@ db.users.find({"hobbies.title": "Sports"}).pretty();
 db.users.insertOne({name: "Chris", hobbies: ["Sports","Cooking","Hiking"]})
 
 db.users.find({hobbies: {$size: 3}}).pretty();
+
+// Array Query Selectors - $elemMatch
+
+use user
+
+db.users.find().pretty()
+
+db.users.find({hobbies:{$elemMatch:{title:"Sports",frequency:2}}}).pretty()
