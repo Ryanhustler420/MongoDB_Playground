@@ -299,3 +299,23 @@
 > db.books.aggregate([{$lookup: {from: "authors", localField: "authors", foreignField: "_id", as: "creators"}}]).pretty()
 
 > Best for Merging Data from Different Collection At One Go
+
+## Implementing an Blog Post DataModel
+
+> use blog
+
+> db.users.insertMany([{name: "Gaurav Gupta", age: 21},{name: "Saurav Gupta", age: 23}])
+
+```shell
+    {
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5cd8e8d6966c507bfe09a37e"),
+                ObjectId("5cd8e8d6966c507bfe09a37f")
+        ]
+    }
+```
+
+> db.posts.insertOne({title: "My first Post!", text: "This is my first shell based post, I hope u like it", tags: ["new","tech"], creator: ObjectId("5cd8e8d6966c507bfe09a37e"), comments: [{text: "I like this post!", author: ObjectId("5cd8e8d6966c507bfe09a37f")}]})
+
+> db.posts.findOne()
