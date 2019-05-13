@@ -26,3 +26,16 @@
 
 > db.hobbies.insertMany([{_id: "yoga", name: "Yoga"}, {_id: "cooking", name: "Cooking"}, {_id: "hiking", name: "Hiking"}], {ordered: false})
 
+## The `writeConcern` in Practice
+
+> db.persons.insertOne({name: "Gaurav", age: 21}, {writeConcern: {w: 0}})
+
+> db.persons.insertOne({name: "Saurav", age: 21}, {writeConcern: {w: 1}})
+
+> db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: false}})
+
+> db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: true}}) // it puts the query to Journel First, what if the db crashes than journel might be helpfull
+
+> db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: false, wtimeout: 200}})
+
+> db.persons.insertOne({name: "Michael", age: 21}, {writeConcern: {w: 1, j: false, wtimeout: 1}})
