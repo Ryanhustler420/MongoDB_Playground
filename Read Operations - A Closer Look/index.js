@@ -56,3 +56,9 @@ db.movies.find({"rating.average": {$gt: 9}, genres: "Drama"}).count();
 db.movies.find({genres: "Drama", genres: "Horror"}).count();
 
 db.movies.find({$and: [{genres: "Drama"}, {genres: "Horror"}]}).count();
+
+// $not Operator
+
+db.movies.find({runtime: {$not: {$eq: 60}}}).count()
+
+db.movies.find({runtime: {$ne: 60}}).count()
