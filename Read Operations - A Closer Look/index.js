@@ -82,3 +82,11 @@ db.users.find().pretty()
 db.users.find({age: {$exists: false}}).pretty()
 
 db.users.find({age: {$exists: true, $ne: null}}).pretty()
+
+// $type
+
+db.users.find({phone: {$type: "number"}}).pretty()
+
+db.users.find({phone: {$type: "double"}}).pretty()
+
+db.users.find({phone: {$type: ["double","string"]}}).pretty()
