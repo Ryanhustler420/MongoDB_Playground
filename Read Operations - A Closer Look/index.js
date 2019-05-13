@@ -120,3 +120,9 @@ db.users.find().pretty()
 db.users.find({hobbies: {title: "Sports", frequency: 2}}).pretty();
 
 db.users.find({"hobbies.title": "Sports"}).pretty();
+
+// $size
+
+db.users.insertOne({name: "Chris", hobbies: ["Sports","Cooking","Hiking"]})
+
+db.users.find({hobbies: {$size: 3}}).pretty();
