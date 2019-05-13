@@ -28,3 +28,9 @@ db.movies.find ({genres: 'Drama'}).pretty ();
 db.movies.find ({genres: ['Drama']}).pretty ();
 
 db.movies.find ({genres: ['Drama', 'Action']}).pretty ();
+
+// in and nin
+
+db.movies.find ({runtime: {$in: [30, 42]}}).pretty ();
+
+db.movies.find ({runtime: {$nin: [30, 42]}}).pretty ();
