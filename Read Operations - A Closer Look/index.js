@@ -110,3 +110,13 @@ db.sales.find().pretty()
 db.sales.find({$expr: {$gt: ["$volume","$target"]}}).pretty()
 
 db.sales.find({$expr: {$gt: [{$cond: {if: {$gte: ["$volume", 190]}, then: {$subtract: ["$volume", 30]}, else: "$volume"}}, "$target" ]}}).pretty()
+
+// Querying Arrays
+
+use user
+
+db.users.find().pretty()
+
+db.users.find({hobbies: {title: "Sports", frequency: 2}}).pretty();
+
+db.users.find({"hobbies.title": "Sports"}).pretty();
