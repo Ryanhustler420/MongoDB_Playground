@@ -62,3 +62,23 @@ db.movies.find({$and: [{genres: "Drama"}, {genres: "Horror"}]}).count();
 db.movies.find({runtime: {$not: {$eq: 60}}}).count()
 
 db.movies.find({runtime: {$ne: 60}}).count()
+
+// Element Operators
+
+use user
+
+db.users.insertMany([{name: "Gaurav", hobbies: [{title: "Sports", frequency: 3}, {title: "Cooking", frequency: 6}], phone: 0123488756},{name: "Saurav", hobbies: [{title: "Cooking", frequency: 5}, {title: "Car", frequency: 7}], phone: "0123488756", age: 32}])
+
+db.users.find().pretty()
+
+db.users.find({age: {$exists: true}}).pretty()
+
+db.users.find({age: {$exists: true, $gt: 42}}).pretty()
+
+db.users.insertOne({name: "Anna", hobbies: [{title: "Sports", frequency: 2},{title: "Yoga", frequency: 3}], phone: "8089835698", age: null})
+
+db.users.find().pretty()
+
+db.users.find({age: {$exists: false}}).pretty()
+
+db.users.find({age: {$exists: true, $ne: null}}).pretty()
