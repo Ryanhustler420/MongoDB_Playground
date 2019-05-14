@@ -48,3 +48,7 @@ db.users.updateMany({}, {$rename: {age: "totalAge"}})
 db.users.updateOne({name: "Maria"}, {$set: {age: 29, hobbies: [{title: "Good Food", frequency: 3, isSporty: true}]}}, {upsert: true})
 
 db.users.updateOne({name: "Max"}, {$set: {name: "Boom", age: 29, hobbies: [{title: "Good Food", frequency: 3, isSporty: true}]}}, {upsert: true})
+
+// Updating Matched Array Elements
+
+db.users.updateMany({"hobbies": {$elemMatch:{title:"Sports",frequency:{$gte: 3}}}},{$set: {"hobbies.$.highFrequency": true}})
