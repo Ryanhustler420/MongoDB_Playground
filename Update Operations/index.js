@@ -38,3 +38,13 @@ db.users.updateOne({name: "Chris"}, {$mul: {age: 1.1}})
 db.users.updateMany({isSporty: true}, {$set: {phone: null}})
 
 db.users.updateMany({isSporty: true}, {$unset: {phone: ""}})
+
+// Renaming Fields
+
+db.users.updateMany({}, {$rename: {age: "totalAge"}})
+
+// upsert()
+
+db.users.updateOne({name: "Maria"}, {$set: {age: 29, hobbies: [{title: "Good Food", frequency: 3, isSporty: true}]}}, {upsert: true})
+
+db.users.updateOne({name: "Max"}, {$set: {name: "Boom", age: 29, hobbies: [{title: "Good Food", frequency: 3, isSporty: true}]}}, {upsert: true})
