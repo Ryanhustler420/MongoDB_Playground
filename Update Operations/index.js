@@ -8,3 +8,9 @@ db.users.updateOne({_id: ObjectId("5cd9c2fe1cb08c10423b7557")},{$set:{hobbies: [
 db.users.find({"hobbies.title": "Sports"}).pretty()
 
 db.users.updateMany({"hobbies.title": "Sports"}, {$set: {isSporty: true}})
+
+// Update Multiple Fields with $set
+
+db.users.find().pretty() // take chris objectId
+
+db.users.updateOne({_id: ObjectId("5cd9c2fe1cb08c10423b7557")},{$set: {age: 40, phone: 423369785}})
