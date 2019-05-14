@@ -22,3 +22,13 @@ db.users.updateOne({name: "Chris"},{$inc: {age: 1}})
 db.users.updateOne({name: "Chris"},{$inc: {age: -1}})
 
 db.users.updateOne({name: "Chris"},{$inc: {age: 1}, $set: {isSporty: false}})
+
+// Using $min $max and $mul
+
+db.users.updateOne({name: "Chris"}, {$min: {age: 35}})
+
+db.users.updateOne({name: "Chris"}, {$min: {age: 38}}) // this will not work
+
+db.users.updateOne({name: "Chris"}, {$max: {age: 38}})
+
+db.users.updateOne({name: "Chris"}, {$mul: {age: 1.1}})
