@@ -150,3 +150,7 @@ dataCursor.next() // Multiple times
 dataCursor.forEach(doc => {printjson(doc)})
 
 dataCursor.hasNext()
+
+// Sorting Cursor Results
+
+db.movies.find().sort({"rating.average": 1, "runtime": -1}).pretty()
