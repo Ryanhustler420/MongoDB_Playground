@@ -14,3 +14,11 @@ db.users.updateMany({"hobbies.title": "Sports"}, {$set: {isSporty: true}})
 db.users.find().pretty() // take chris objectId
 
 db.users.updateOne({_id: ObjectId("5cd9c2fe1cb08c10423b7557")},{$set: {age: 40, phone: 423369785}})
+
+// Incrementing Decrementing Values
+
+db.users.updateOne({name: "Chris"},{$inc: {age: 1}})
+
+db.users.updateOne({name: "Chris"},{$inc: {age: -1}})
+
+db.users.updateOne({name: "Chris"},{$inc: {age: 1}, $set: {isSporty: false}})
