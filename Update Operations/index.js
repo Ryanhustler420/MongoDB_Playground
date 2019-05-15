@@ -60,3 +60,9 @@ db.users.find({"hobbies.frequency": {$gt: 2}}).pretty()
 db.users.updateMany({"hobbies.frequency": {$gt: 2}},{$set: {"hobbies.$.goodFrequency": true}}) // changes the first match
 
 db.users.updateMany({totalAge: {$gt: 30}},{$inc: {"hobbies.$[].frequency": -1}}) // update each element in array
+
+// Finding Updating Specific Fields
+
+db.users.find({"hobbies.frequency": {$gt: 2}}).pretty()
+
+db.users.updateMany({"hobbies.frequency": {$gt: 2}},{$set:{"hobbies.$[el].goodFrequency": true}}, {arrayFilters: [{"el.frequency": {$gt: 2}}]})
