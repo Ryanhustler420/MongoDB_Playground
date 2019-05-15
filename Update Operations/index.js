@@ -66,3 +66,9 @@ db.users.updateMany({totalAge: {$gt: 30}},{$inc: {"hobbies.$[].frequency": -1}})
 db.users.find({"hobbies.frequency": {$gt: 2}}).pretty()
 
 db.users.updateMany({"hobbies.frequency": {$gt: 2}},{$set:{"hobbies.$[el].goodFrequency": true}}, {arrayFilters: [{"el.frequency": {$gt: 2}}]})
+
+// Adding Elements to Arrays
+
+db.users.updateOne({name: "Maria"},{$push: {hobbies: {title: "Sports", frequency: 2}}})
+
+db.users.updateOne({name: "Maria"},{$push: {hobbies: {$each: [{title: "Good Wine", frequency: 1},{title: "Hicking", frequency: 2}], $sort: {frequency: -1}}}})
