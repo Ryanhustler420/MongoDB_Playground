@@ -88,3 +88,8 @@ db.users.updateOne({name: "Chris"},{$pop: {hobbies: 1}})
 db.users.updateOne({name: "Chris"},{$pop: {hobbies: -1}})
 
 db.users.find().pretty();
+
+//  $addToSet to prevent duplicate value in array
+
+db.users.updateOne({name: "Maria"}, {$addToSet: {hobbies: {title: "Hicking", frequency: 2}}})
+
