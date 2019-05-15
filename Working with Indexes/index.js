@@ -44,3 +44,9 @@ db.contacts.explain().find({"dob.age": 35}).sort({gender: 1})
 // The Default Index
 
 db.contacts.getIndexes();
+
+// Configuring Indexes
+
+db.contacts.findOne();
+
+db.contacts.createIndex({email: 1}, {unique: true})
