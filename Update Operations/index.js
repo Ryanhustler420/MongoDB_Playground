@@ -72,3 +72,19 @@ db.users.updateMany({"hobbies.frequency": {$gt: 2}},{$set:{"hobbies.$[el].goodFr
 db.users.updateOne({name: "Maria"},{$push: {hobbies: {title: "Sports", frequency: 2}}})
 
 db.users.updateOne({name: "Maria"},{$push: {hobbies: {$each: [{title: "Good Wine", frequency: 1},{title: "Hicking", frequency: 2}], $sort: {frequency: -1}}}})
+
+// Removing Elements from Arrays
+
+db.users.updateOne({name: "Maria"}, {$pull: {hobbies: {title: "Hicking"}}})
+
+db.users.updateOne({name: "Maria"}, {$pull: {hobbies: {title: "Good Wine"}}})
+
+db.users.updateOne({name: "Maria"}, {$pull: {hobbies: {frequency: 2}}})
+
+db.users.find().pretty();
+
+db.users.updateOne({name: "Chris"},{$pop: {hobbies: 1}})
+
+db.users.updateOne({name: "Chris"},{$pop: {hobbies: -1}})
+
+db.users.find().pretty();
