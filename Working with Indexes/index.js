@@ -36,3 +36,11 @@ db.contacts.explain().find({"dob.age": 35, gender: "male"});
 db.contacts.explain().find({"dob.age": 35});
 
 db.contacts.explain().find({gender: "male"}); // use COLLSCAN which is clearly not what we want right! it scan age -> gender || left to right [compound indexes works left to right]. you can have upto 31 compound indexes
+
+// Using Indexes for Sorting
+
+db.contacts.explain().find({"dob.age": 35}).sort({gender: 1})
+
+// The Default Index
+
+db.contacts.getIndexes();
