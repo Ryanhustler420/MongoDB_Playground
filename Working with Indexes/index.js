@@ -65,3 +65,27 @@ db.contacts.find({"dob.age": {$gt: 60}}).pretty();
 db.contacts.explain().find({"dob.age": {$gt: 60}});
 
 db.contacts.explain().find({"dob.age": {$gt: 60}, gender: "male"});
+
+// Applying the Partial Index
+
+db.users.insertMany([{name: "Gaurav", email: "gouravgupta@gmail.com"},{name: "Saurav"}]);
+
+db.users.createIndex({email: 1});
+
+db.users.dropIndex({email : 1});
+
+db.users.createIndex({email:1},{unique: true});
+
+db.users.insertOne({name: "Sangeeta"});
+
+// Saurav has no email! so no email is actually a value so Sangeeta has no email either so that would match , and gives duplicate values error!
+
+db.users.dropIndex({email : 1});
+
+db.users.createIndex({email:1},{unique: true, partialFilterExpression: {email: {$exists: true}}});
+
+db.users.insertOne({name: "Sangeeta"});
+
+db.users.find().pretty();
+
+db.users.insertOne({name: "Sangeeta", email: "gouravgupta@gmail.com"})
