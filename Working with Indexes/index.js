@@ -119,3 +119,44 @@ db.customers.find({name: "Gaurav"}).count();
 db.customers.explain('executionStats').find({name: "Gaurav"}, {_id: 0, name: 1});
 
 db.customers.find({name: "Gaurav"}, {_id: 0, name: 1}).count();
+
+// How MongoDB Rejects a Plan
+
+db.customers.getIndexes();
+
+// compound Index
+db.customers.createIndex({age: 1, name: 1});
+
+db.customers.explain().find({name: "Gaurav", age: 21});
+
+db.customers.explain("allPlansExecution").find({name: "Gaurav", age: 21});
+
+// Using Multi-Key Indexes
+
+db.contacts.drop()
+
+db.contacts.insertOne({name: "Gaurav", hobbies: ['Cooking', "Sports"], addresses: [{street: "Main Street"},{street: "Second Street"}]});
+
+db.contacts.findOne();
+
+db.contacts.createIndex({hobbies: 1});
+
+db.contacts.find({hobbies: "Sports"}).pretty();
+
+db.contacts.explain('executionStats').find({hobbies: "Sports"}).pretty();
+
+db.contacts.createIndex({addresses: 1});
+
+db.contacts.explain("executionStats").find({"addresses": {street: "Main Street"}}).pretty();
+
+db.contacts.createIndex({"addresses.street": 1});
+
+db.contacts.explain("executionStats").find({"addresses": "Main Street"}).pretty();
+
+// Exception
+
+// Works
+db.contacts.createIndex({name: 1, hobbies: 1});
+
+// Dosen't Work
+db.contacts.createIndex({addresses: 1, hobbies: 1});
