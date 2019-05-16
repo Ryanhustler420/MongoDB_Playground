@@ -103,3 +103,19 @@ db.sessions.createIndex({createdAt: 1}, {expireAfterSeconds: 10});
 db.sessions.insertOne({data: "sdkfhkas", createdAt: new Date()})
 
 db.sessions.find().pretty()
+
+// Covered Queries
+
+db.customers.insertMany([{name: "Gaurav", age: 21, salary: 3000},{name: "Saurav", age: 23, salary: 4000}])
+
+db.customers.createIndex({name: 1});
+
+db.customers.explain('executionStats').find({name: "Gaurav"});
+
+db.customers.find({name: "Gaurav"}).count();
+
+// only returns the index value is is `name` in our case. so it won't examined Docs for more detail while we want only name which is simply index value
+
+db.customers.explain('executionStats').find({name: "Gaurav"}, {_id: 0, name: 1});
+
+db.customers.find({name: "Gaurav"}, {_id: 0, name: 1}).count();
