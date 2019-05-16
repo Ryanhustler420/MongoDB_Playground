@@ -213,3 +213,51 @@ db.products.findOne()
 db.products.insertOne({title: 'A Ship', description: "Floats perfectly!"})
 
 db.products.find({$text: {$search: "ship"}}); // will search in title and description as well
+
+// Using Text Indexesto Exclude Words
+
+db.products.find({$text: {$search: "awesome"}}).pretty();
+
+db.products.find({$text: {$search: "awesome -t-shirt"}}).pretty();
+
+// Setting the Default Language Using Weights
+
+db.products.getIndexes();
+
+db.products.dropIndex("title_text_description_text");
+
+db.products.createIndex({title: "text", description: "text"},{default_language: "english", weights:{ title: 1, description: 10 }})
+
+db.products.find().pretty()
+
+// db.products.find({$text: {$search: "", $language: "german"}})
+// db.products.find({$text: {$search: "", $caseSensitive: true}})
+db.products.find({$text: {$search: "red"}}, {score: {$meta: "textScore"}}).pretty()
+
+// Building Indexes
+
+// mongo credit-rating.js
+
+use credit
+
+show collections
+
+db.ratings.count()
+
+db.ratings.findOne()
+
+db.ratings.createIndex({age: 1});
+
+db.ratings.explain('executionStats').find({age: {$gt : 80}});
+
+db.ratings.dropIndex({age: 1});
+
+db.ratings.getIndexes()
+
+// when creating Indexes. it takes some time and withen than time all the insertion will be blocked so after finishing indexing the query will execute, so this is forground
+
+// now we will do background, 
+
+db.ratings.dropIndex({age: 1});
+
+db.ratings.createIndex({age: 1}, {background: true})
