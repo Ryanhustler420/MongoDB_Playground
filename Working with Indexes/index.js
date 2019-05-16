@@ -89,3 +89,17 @@ db.users.insertOne({name: "Sangeeta"});
 db.users.find().pretty();
 
 db.users.insertOne({name: "Sangeeta", email: "gouravgupta@gmail.com"})
+
+// The Time To Live (TTL) Index
+// It will work on single indexes and not compound indexes
+// It will work on Date indexes.
+
+db.sessions.insertOne({data: "sdkfhkas", createdAt: new Date()})
+
+db.sessions.find().pretty()
+
+db.sessions.createIndex({createdAt: 1}, {expireAfterSeconds: 10});
+
+db.sessions.insertOne({data: "sdkfhkas", createdAt: new Date()})
+
+db.sessions.find().pretty()
