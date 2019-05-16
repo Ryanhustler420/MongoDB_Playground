@@ -50,3 +50,18 @@ db.contacts.getIndexes();
 db.contacts.findOne();
 
 db.contacts.createIndex({email: 1}, {unique: true})
+
+// Partial Filters
+
+db.contacts.getIndexes()
+
+db.contacts.createIndex({"dob.age": 1}, {partialFilterExpression:{gender: "male"}})
+
+// only make indexes for ages which are above 60
+db.contacts.createIndex({"dob.age": 1}, {partialFilterExpression:{"dob.age": {$gt: 60}}})
+
+db.contacts.find({"dob.age": {$gt: 60}}).pretty();
+
+db.contacts.explain().find({"dob.age": {$gt: 60}});
+
+db.contacts.explain().find({"dob.age": {$gt: 60}, gender: "male"});
