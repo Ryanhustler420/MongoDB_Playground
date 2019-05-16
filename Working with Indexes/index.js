@@ -183,3 +183,12 @@ db.products.find({$text: {$search: "Red book"}}).pretty()
 db.products.find({$text: {$search: "\"Red book\""}}).pretty()
 
 db.products.find({$text: {$search: "\"awesome book\""}}).pretty()
+
+// Text Indexes Sorting
+
+db.products.find({$text: {$search: "awesome t-shirt"}}).pretty()
+
+db.products.find({$text: {$search: "awesome t-shirt"}},{score: {$meta: "textScore"}}).pretty()
+
+db.products.find({$text: {$search: "awesome t-shirt"}},{score: {$meta: "textScore"}}).sort({score:{$meta: "textScore"}}).pretty()
+
