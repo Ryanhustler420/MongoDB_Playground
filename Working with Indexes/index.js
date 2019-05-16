@@ -160,3 +160,26 @@ db.contacts.createIndex({name: 1, hobbies: 1});
 
 // Dosen't Work
 db.contacts.createIndex({addresses: 1, hobbies: 1});
+
+// Text Indexes
+
+db.products.insertMany([{title: 'A Book', description: "This is an awesome book about the young artist"}, {title: 'Red T-Shirt', description: "This T-Shirt is read and its pretty awesome"}]);
+
+db.products.find().pretty();
+
+// it will not work 
+// db.products.createIndex({description: 1})
+
+
+// it will store all the word in array and drop stopping words like a an the
+db.products.createIndex({description: "text"});
+
+db.products.find({$text: {$search: "Awesome"}}).pretty()
+
+db.products.find({$text: {$search: "Book"}}).pretty()
+
+db.products.find({$text: {$search: "Red book"}}).pretty()
+
+db.products.find({$text: {$search: "\"Red book\""}}).pretty()
+
+db.products.find({$text: {$search: "\"awesome book\""}}).pretty()
