@@ -192,3 +192,24 @@ db.products.find({$text: {$search: "awesome t-shirt"}},{score: {$meta: "textScor
 
 db.products.find({$text: {$search: "awesome t-shirt"}},{score: {$meta: "textScore"}}).sort({score:{$meta: "textScore"}}).pretty()
 
+// Creating Combined Text Indexes
+
+db.products.getIndexes()
+
+db.products.findOne()
+
+// You can only have one text Index
+db.products.createIndex({title: "text"});
+
+// You can drop text indexes by thier name
+db.products.dropIndex("description_text");
+
+// We can merge desc and title
+db.products.createIndex({title: "text", description: "text"});
+// there will be still only one text index but it will containt both the title and description key
+
+db.products.findOne()
+
+db.products.insertOne({title: 'A Ship', description: "Floats perfectly!"})
+
+db.products.find({$text: {$search: "ship"}}); // will search in title and description as well
