@@ -1,0 +1,1 @@
+> db.friends.insertMany(array-data.json)

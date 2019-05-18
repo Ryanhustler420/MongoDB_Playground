@@ -1,0 +1,36 @@
+// Project is All About Transforming Data
+
+db.persons
+  .aggregate ([
+    {
+      $project: {
+        _id: 0,
+        gender: 1,
+        fullName: {
+          // $concat: ['hello', 'world'],
+          // $concat: ['$name.first', ' ', '$name.last'],
+          // $concat: [{$toUpper: '$name.first'}, ' ', {$toUpper: '$name.last'}],
+          $concat: [
+            {$toUpper: {$substrCP: ['$name.first', 0, 1]}},
+            {
+              $substrCP: [
+                '$name.first',
+                1,
+                {$subtract: [{$strLenCP: '$name.first'}, 1]},
+              ],
+            },
+            ' ',
+            {$toUpper: {$substrCP: ['$name.last', 0, 1]}},
+            {
+              $substrCP: [
+                '$name.last',
+                1,
+                {$subtract: [{$strLenCP: '$name.last'}, 1]},
+              ],
+            },
+          ],
+        },
+      },
+    },
+  ])
+  .pretty ();
