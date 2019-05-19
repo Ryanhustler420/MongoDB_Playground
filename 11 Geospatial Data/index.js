@@ -1,6 +1,6 @@
 // Adding GeoJSON Data
 
-use awesomeplaces
+// use awesomeplaces
 
 db.places.insertOne({name: "California Academy of Sciences", location: { type: "Point", coordinates: [-122.4724356, 37.7672544] }})
 
