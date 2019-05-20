@@ -9,8 +9,15 @@ const db = require('../db');
 
 // Get list of products products
 router.get('/', (req, res, next) => {
+    const queryPage = req.query.page;
+    const pageSize = 1;
+
     const products = [];
-    db.getDb().db().collection('products').find({}).forEach(prodDoc => {
+    db.getDb().db().collection('products').find({})
+    // .sort({price: -1})
+    // .skip((queryPage - 1) * pageSize)
+    // .limit(pageSize)
+    .forEach(prodDoc => {
       prodDoc.price = prodDoc.price.toString();      
       products.push(prodDoc);
     }).then(result => {

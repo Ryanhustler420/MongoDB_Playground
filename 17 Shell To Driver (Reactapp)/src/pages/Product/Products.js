@@ -11,7 +11,7 @@ class ProductsPage extends Component {
 
   productDeleteHandler = productId => {
     axios
-      .delete('http://localhost:3100/products/' + productId)
+      .delete('http://localhost:3100/products' + productId)
       .then(result => {
         console.log(result);
         this.fetchData();
