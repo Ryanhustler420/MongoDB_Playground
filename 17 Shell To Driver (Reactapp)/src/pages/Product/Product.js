@@ -26,7 +26,7 @@ class ProductPage extends Component {
       content = (
         <main className="product-page">
           <h1>{this.state.product.name}</h1>
-          <h2>{this.state.product.price}</h2>
+          <h2>$ {this.state.product.price}</h2>
           <div
             className="product-page__image"
             style={{

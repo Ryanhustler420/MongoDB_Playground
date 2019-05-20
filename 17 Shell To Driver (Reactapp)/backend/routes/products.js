@@ -59,17 +59,34 @@ router.patch('/:id', (req, res, next) => {
   const updatedProduct = {
     name: req.body.name,
     description: req.body.description,
-    price: parseFloat(req.body.price), // store this as 128bit decimal in MongoDB
+    price: Decimal128.fromString(req.body.price.toString()), // store this as 128bit decimal in MongoDB
     image: req.body.image
   };
-  console.log(updatedProduct);
-  res.status(200).json({ message: 'Product updated', productId: 'DUMMY' });
+  db.getDb().db()
+    .collection('products')
+    .updateOne({_id: new ObjectId(req.params.id)}, {$set: updatedProduct})
+    .then(result => {
+      res.status(200).json({ message: 'Product updated', productId: req.params.id });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(201).json({ message: 'An error occured.' });
+    })
 });
 
 // Delete a product
 // Requires logged in user
 router.delete('/:id', (req, res, next) => {
-  res.status(200).json({ message: 'Product deleted' });
+  db.getDb().db()
+  .collection('products')
+  .deleteOne({_id: new ObjectId(req.params.id)})
+  .then(result => {
+    res.status(200).json({ message: 'Product Deleted Successfully', productId: req.params.id });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(201).json({ message: 'An error occured.' });
+  })
 });
 
 module.exports = router;
