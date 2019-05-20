@@ -1,6 +1,8 @@
 const Router = require('express').Router;
 
 const router = Router();
+const mongodb = require('mongodb');
+const mongoClient = mongodb.MongoClient;
 
 const products = [
   {
@@ -82,7 +84,17 @@ router.post('', (req, res, next) => {
     price: parseFloat(req.body.price), // store this as 128bit decimal in MongoDB
     image: req.body.image
   };
-  console.log(newProduct);
+  const uri = "mongodb+srv://<username>:<password>@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true";
+  mongoClient.connect(uri)
+    .then(client => {
+      // connect to cluster with shell using 
+      // mongo "mongodb+srv://cluster0-erk3k.mongodb.net/ReactShop" --username args [as admin user [find in docs]] for shell
+      client.db().collection('products').insertOne(newProduct);
+      client.close();
+    })
+    .catch(err => {
+      console.log(err);
+    });
   res.status(201).json({ message: 'Product added', productId: 'DUMMY' });
 });
 
