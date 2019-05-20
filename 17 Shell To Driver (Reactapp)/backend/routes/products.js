@@ -3,6 +3,7 @@ const Router = require('express').Router;
 const router = Router();
 const mongodb = require('mongodb');
 const mongoClient = mongodb.MongoClient;
+const Decimal128 = mongodb.Decimal128;
 
 const products = [
   {
@@ -81,7 +82,7 @@ router.post('', (req, res, next) => {
   const newProduct = {
     name: req.body.name,
     description: req.body.description,
-    price: parseFloat(req.body.price), // store this as 128bit decimal in MongoDB
+    price: Decimal128.fromString(req.body.price.toString()), // store this as 128bit decimal in MongoDB
     image: req.body.image
   };
   const uri = "mongodb+srv://<username>:<password>@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true";
@@ -89,13 +90,20 @@ router.post('', (req, res, next) => {
     .then(client => {
       // connect to cluster with shell using 
       // mongo "mongodb+srv://cluster0-erk3k.mongodb.net/ReactShop" --username args [as admin user [find in docs]] for shell
-      client.db().collection('products').insertOne(newProduct);
-      client.close();
+      client.db().collection('products').insertOne(newProduct).then(result => {
+        console.log(result);
+        client.close();
+        res.status(201).json({ message: 'Product added', productId: result.insertedId });
+      })
+      .catch(err => {
+        console.log(err);
+        client.close();
+        res.status(201).json({ message: 'An error occured.' });
+      });
     })
     .catch(err => {
       console.log(err);
     });
-  res.status(201).json({ message: 'Product added', productId: 'DUMMY' });
 });
 
 // Edit existing product
