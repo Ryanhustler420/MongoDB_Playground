@@ -2,7 +2,7 @@ const mongodb = require ('mongodb');
 
 const MongoClient = mongodb.MongoClient;
 const mongoDdUrl =
-  'mongodb+srv://GauravGupta:phpmyadmin@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true';
+  'mongodb+srv://<username>:<password>@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true';
 
 let _db;
 
