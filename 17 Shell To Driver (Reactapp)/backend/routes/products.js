@@ -56,18 +56,43 @@ const products = [
 
 // Get list of products products
 router.get('/', (req, res, next) => {
+
+  const uri = "mongodb+srv://username:password@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true";
+  mongoClient.connect(uri)
+    .then(client => {
+      const products = [];
+      client.db().collection('products').find({}).forEach(prodDoc => {
+        // console.log(prodDoc);
+        prodDoc.price = prodDoc.price.toString();      
+        products.push(prodDoc);
+      }).then(result => {
+        client.close();
+        res.status(200).json(products);
+      })
+      .catch(err => {
+        console.log(err);
+        client.close();
+        res.status(201).json({ message: 'An error occured.' });
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(201).json({ message: 'An error occured.' });
+    });
+
   // Return a list of dummy products
   // Later, this data will be fetched from MongoDB
-  const queryPage = req.query.page;
-  const pageSize = 5;
-  let resultProducts = [...products];
-  if (queryPage) {
-    resultProducts = products.slice(
-      (queryPage - 1) * pageSize,
-      queryPage * pageSize
-    );
-  }
-  res.json(resultProducts);
+
+  // const queryPage = req.query.page;
+  // const pageSize = 5;
+  // let resultProducts = [...products];
+  // if (queryPage) {
+  //   resultProducts = products.slice(
+  //     (queryPage - 1) * pageSize,
+  //     queryPage * pageSize
+  //   );
+  // }
+  // res.json(resultProducts);
 });
 
 // Get single product
@@ -85,7 +110,7 @@ router.post('', (req, res, next) => {
     price: Decimal128.fromString(req.body.price.toString()), // store this as 128bit decimal in MongoDB
     image: req.body.image
   };
-  const uri = "mongodb+srv://<username>:<password>@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true";
+  const uri = "mongodb+srv://username:password@cluster0-erk3k.mongodb.net/ReactShopDB?retryWrites=true";
   mongoClient.connect(uri)
     .then(client => {
       // connect to cluster with shell using 
@@ -103,6 +128,7 @@ router.post('', (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
+      res.status(201).json({ message: 'An error occured.' });
     });
 });
 
