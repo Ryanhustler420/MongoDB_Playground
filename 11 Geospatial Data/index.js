@@ -54,6 +54,7 @@ db.areas.find({area: {$geoIntersects: {$geometry: {type: "Point", coordinates: [
 db.areas.find({area: {$geoIntersects: {$geometry: {type: "Point", coordinates: [-122.48446,37.77776]}}}}).pretty()
 
 // Finding Places Within a Certain Radius
+db.places.find({location: {$geoWithin: {$centerSphere: [[-122.46203, 37.77286], 1 /* Km */ / 6378.1 /* Radius */ ]}}}).pretty()
 
 //  within 1Km check more in Docs
-db.places.find({location: {$geoWithin: {$centerSphere: [[-122.46203, 37.77286], 1 /* Km */ / 6378.1 /* Radius */ ]}}}).pretty()
+// https://docs.mongodb.com/manual/tutorial/calculate-distances-using-spherical-geometry-with-2d-geospatial-indexes/
