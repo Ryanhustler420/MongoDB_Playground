@@ -16,6 +16,8 @@ db.places.createIndex({location: "2dsphere"})
 
 db.places.find({location: {$near: {$geometry: {type: "Point", coordinates: [-122.471114, 37.771104]}}}}).pretty()
 
+// here #maxDistance or #minDistance is in meters.
+
 db.places.find({location: {$near: {$geometry: {type: "Point", coordinates: [-122.471114, 37.771104]}, $maxDistance: 30, $minDistance: 10}}}).pretty() // wont give any result
 
 db.places.find({location: {$near: {$geometry: {type: "Point", coordinates: [-122.471114, 37.771104]}, $maxDistance: 500, $minDistance: 10}}}).pretty() // will give result
