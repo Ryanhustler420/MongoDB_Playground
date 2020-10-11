@@ -56,4 +56,4 @@ db.areas.find({area: {$geoIntersects: {$geometry: {type: "Point", coordinates: [
 // Finding Places Within a Certain Radius
 
 //  within 1Km check more in Docs
-db.places.find({location: {$geoWithin: {$centerSphere: [[-122.46203, 37.77286], 1 / 6378.1]}}}).pretty()
+db.places.find({location: {$geoWithin: {$centerSphere: [[-122.46203, 37.77286], 1 /* Km */ / 6378.1 /* Radius */ ]}}}).pretty()
